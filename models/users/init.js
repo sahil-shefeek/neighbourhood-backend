@@ -1,11 +1,12 @@
-import mysql from "mysql2";
+import pg from "pg";
 import { pool_options } from "../../config/database.config.js";
-
-const pool = mysql.createPool(pool_options).promise();
+const { Pool } = pg;
+const pool = new Pool(pool_options);
+const client = await pool.connect();
 
 const createUsersTable = async () => {
   try {
-    await pool.query(
+    await client.query(
       `CREATE TABLE users(
         id VARCHAR(36) PRIMARY KEY,
         name VARCHAR(36) NOT NULL,
@@ -22,6 +23,8 @@ const createUsersTable = async () => {
   } catch (error) {
     console.error("Failed to create users table:", error.message);
     throw new Error(error.message);
+  } finally {
+    client.release();
   }
 };
 
