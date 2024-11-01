@@ -26,3 +26,5 @@ app.use(errorHandler);
 app.listen(process.env.PORT, () => {
   renderBranding();
 });
+
+export default app;
