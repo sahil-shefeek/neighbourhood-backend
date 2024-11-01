@@ -6,7 +6,7 @@ const handleLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await users.get({ email });
-    console.log(user);
+    const userid = user?.id;
     const match = await bcrypt.compare(password, user?.password);
     if (match) {
       const payload = {
@@ -22,7 +22,8 @@ const handleLogin = async (req, res) => {
         process.env.REFRESH_TOKEN_SECRET,
         { expiresIn: "1d" }
       );
-      await users.update(user?.id, { refresh_token: refresh });
+
+      await users.update(userid, { refresh_token: refresh });
       res.cookie("refresh", refresh, {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
