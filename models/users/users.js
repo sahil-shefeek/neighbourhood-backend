@@ -81,7 +81,7 @@ const add = async (userDetails) => {
 
     await query(sql, values);
 
-    const createdUser = await get(id, null);
+    const createdUser = await get({ id });
 
     return {
       success: true,
@@ -96,14 +96,14 @@ const add = async (userDetails) => {
 export const update = async (id, userDetails) => {
   try {
     const {
-      name,
-      password,
-      refresh_token,
-      gender,
-      email,
-      address,
-      phone,
-      photo,
+      name = undefined,
+      password = undefined,
+      refresh_token = undefined,
+      gender = undefined,
+      email = undefined,
+      address = undefined,
+      phone = undefined,
+      photo = undefined,
     } = userDetails;
 
     const fields = [];
@@ -149,7 +149,10 @@ export const update = async (id, userDetails) => {
 
     values.push(id);
 
-    const sql = `UPDATE users SET ${fields.join(", ")} WHERE id = $1`;
+    const sql = `UPDATE users SET ${fields.join(", ")} WHERE id = $${
+      values.length
+    }`;
+
     const result = await query(sql, values);
     if (result.affectedRows === 0) {
       throw { status: 404, message: "User not found" };
