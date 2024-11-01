@@ -3,7 +3,7 @@ import {
     getImage,
     addImage,
     deleteImage
-} from "../../../../controllers/product_images/product_imageController.js";
+} from "../../../../controllers/service_images/service_imageController.js";
 
 
 const imageRouter = express.Router();
@@ -17,7 +17,7 @@ imageRouter
     .delete(deleteImage)
     
 imageRouter
-    .route("/product_id/:product_id")
+    .route("/service_id/:service_id")
     .get(getImage);
 
 
