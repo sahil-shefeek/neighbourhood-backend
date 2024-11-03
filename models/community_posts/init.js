@@ -10,7 +10,7 @@ const createCommunityPostsTable = async() => {
             `CREATE TABLE IF NOT EXISTS community_posts(
             post_id  UUID PRIMARY KEY,
             posted_by UUID,
-            title INT,
+            title TEXT,
             content TEXT,
             is_fulfilled BOOLEAN NOT NULL DEFAULT FALSE,
             FOREIGN KEY (posted_by) REFERENCES users(id)

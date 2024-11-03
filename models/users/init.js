@@ -7,8 +7,8 @@ const client = await pool.connect();
 const createUsersTable = async () => {
   try {
     await client.query(
-      `CREATE TABLE users(
-        id VARCHAR(36) PRIMARY KEY,
+      `CREATE TABLE IF NOT EXISTS users(
+        id UUID PRIMARY KEY,
         name VARCHAR(36) NOT NULL,
         password VARCHAR(64) NOT NULL,
         refresh_token VARCHAR(512) UNIQUE,

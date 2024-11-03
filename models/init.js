@@ -14,16 +14,16 @@ import createCommunityPostsTable from "./community_posts/init.js";
 const initDatabase = async () => {
   await createUsersTable();
   await createProductTypesTable();
-    await createServiceTypesTable();
-    await createProductsTable();
-    await createServicesTable();
-    await createProductSalesTable();
-    await createServiceSalesTable();
-    await createProductCommentsTable();
-    await createServiceCommentsTable();
-    await createProductImagesTable();
-    await createServiceImagesTable();
-    await createCommunityPostsTable();
+  await createServiceTypesTable();
+  await createProductsTable();
+  await createServicesTable();
+  await createProductSalesTable();
+  await createServiceSalesTable();
+  await createProductCommentsTable();
+  await createServiceCommentsTable();
+  await createProductImagesTable();
+  await createServiceImagesTable();
+  await createCommunityPostsTable();
 };
 
 const startInitialization = async () => {

@@ -1,9 +1,26 @@
 import {query} from "../../services/db.js";
 import {v4 as uuid} from "uuid";
 
-const getAll = async() => {
-    return await query("SELECT * FROM products");
+const getAll = async () => {
+    const queryString = `
+        SELECT 
+            p.name AS product_name, 
+            p.offering_type, 
+            pt.type_name, 
+            u.name AS offered_by_name, 
+            p.price, 
+            p.is_available 
+        FROM 
+            products p
+        JOIN 
+            product_types pt ON p.type_id = pt.type_id
+        JOIN 
+            users u ON p.offered_by = u.id;  
+    `;
+    
+    return await query(queryString);
 };
+
 
 const get = async({id=null,name=null}) => {
     if(id) { 

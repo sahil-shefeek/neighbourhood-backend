@@ -1,4 +1,7 @@
 import services from "../../models/services/services.js";
+import service_types from "../../models/service_types/service_types.js";
+
+const DEFAULT_OFFERED_BY = "8b32c88c-1d27-45d6-910d-af983a3c6f3e";
 
 export const getAllServices = async(req,res) => {
     try{
@@ -42,12 +45,30 @@ export const getServicebyType = async(req,res) => {
 
 export const addService = async(req,res) => {
     try{
-        const result = await services.add(req.body);
+        const { type_name, ...otherserviceData } = req.body;
+
+        
+        const typeResult = await service_types.get({ type_name });
+        
+        if (!typeResult) {
+            return res.status(404).json({ message: "Type not found" });
+        }
+
+        const type_id = typeResult.type_id;
+
+        
+        const serviceData = {
+            ...otherserviceData,
+            type_id,
+            offered_by: DEFAULT_OFFERED_BY,
+        };
+
+        const result = await services.add(serviceData);
         if(!result.success){
             return res.status(400).json({message: result.message});
         }
 
-        const{id,name,type_id,offered_by,is_available,price}=result.createService
+        const{id,name,offered_by,is_available,price}=result.createService
         res.status(201).json({id,name,type_id,offered_by,is_available,price})
     }catch(error){
         res.status(500).json({message: error.message});

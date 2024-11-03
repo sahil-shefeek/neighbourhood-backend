@@ -1,10 +1,24 @@
 import {query} from "../../services/db.js";
 import {v4 as uuid} from "uuid";
 
- const getAll = async() => {
-    return await query("SELECT * FROM services");
+const getAll = async () => {
+    const queryString = `
+        SELECT 
+            s.name AS service_name, 
+            st.type_name, 
+            u.name AS offered_by_name, 
+            s.price, 
+            s.is_available 
+        FROM 
+            services s
+        JOIN 
+            service_types st ON s.type_id = st.type_id
+        JOIN 
+            users u ON s.offered_by = u.id;  
+    `;
+    
+    return await query(queryString);
 };
-
  const get = async(id=null,name=null) =>{
     if(id){
         const res = await query("SELECT * FROM services WHERE id = $1",[id]);
@@ -36,7 +50,7 @@ const getbyType = async(type_name) => {
     try{
         const fields = ["id","name","type_id","offered_by","is_available","price"];
         const values=[id,name,type_id,offered_by,is_available,price];
-        const placcholders = fields.map((_,index) => `$${index+1}`.join(", "));
+        const placcholders = fields.map((_,index) => `$${index+1}`).join(", ");
         const sql =`
         INSERT INTO services(${fields.join(", ")})
         VALUES (${placcholders})`;

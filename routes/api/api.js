@@ -4,11 +4,13 @@ import authRouter from "./auth/auth.js";
 import verifyJWT from "../../middleware/auth/verifyJWT.js";
 import productRouter from "./productRoutes/products/products.js";
 import serviceRouter from "./serviceRoutes/services/services.js";
+import postsRouter from "./community_posts/community_postsRoutes.js";
 
 export const apiRouter = express.Router();
 
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/users", userRouter);
-apiRouter.use(verifyJWT);
+// apiRouter.use(verifyJWT);
 apiRouter.use("/products",productRouter);
 apiRouter.use("/services",serviceRouter);
+apiRouter.use("/community_posts",postsRouter);

@@ -3,7 +3,7 @@ import {
     getImage,
     addImage,
     deleteImage
-} from "../../../../controllers/service_images/service_imageController.js";
+} from "../../../../controllers/service_images/service_imagesController.js";
 
 
 const imageRouter = express.Router();

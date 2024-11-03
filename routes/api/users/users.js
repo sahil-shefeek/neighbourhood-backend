@@ -15,7 +15,7 @@ import verifyJWT from "../../../middleware/auth/verifyJWT.js";
 const userRouter = express.Router();
 
 userRouter.route("/signup").post(newUserValidator, createUser);
-userRouter.use(verifyJWT);
+// userRouter.use(verifyJWT);
 userRouter.route("/").get(getAllUsers);
 userRouter.route("/profile").get((req, res) => {
   req.params.email = req.user;

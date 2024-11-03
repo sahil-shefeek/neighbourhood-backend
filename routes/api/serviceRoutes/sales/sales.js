@@ -3,7 +3,7 @@ import {
     getAllSales,
     getSale,
     addSale
-} from "../../../../controllers/product_sales/product_salesController.js";
+} from "../../../../controllers/service_sales/service_salesController.js";
 
 
 const saleRouter = express.Router();
@@ -22,7 +22,7 @@ saleRouter
     .route("/sold_to/:sold_to")
     .get(getSale);
 saleRouter
-    .route("/product_id/:product_id")
+    .route("/service_id/:service_id")
     .get(getSale);
 
 export default saleRouter;

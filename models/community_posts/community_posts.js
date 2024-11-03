@@ -35,10 +35,10 @@ const add = async(postDetails) => {
                 `INSERT INTO community_posts(${fields.join(", ")})
                 VALUES(${placeholders})`;
         await query(sql,values);
-        const createProduct = await get({id});
+        const createPost = await get({post_id});
         return{
             success:true,
-            createProduct,
+            createPost,
         };
     }catch(error){
         console.error(error);
